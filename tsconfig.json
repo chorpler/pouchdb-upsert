@@ -3,11 +3,9 @@
     "alwaysStrict": true,
     "baseUrl": ".",
     "lib": [
-      "es2017",
       "es2015",
       "dom"
     ],
-    "module": "es2015",
     "moduleResolution": "node",
     "allowJs": false,
     "noImplicitAny": true,
@@ -15,7 +13,7 @@
     "strictNullChecks": false,
     "strictFunctionTypes": true,
     "sourceMap": true,
-    "target": "es2015",
+    "target": "es5",
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
     "declaration": false,

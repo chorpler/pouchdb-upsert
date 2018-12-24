@@ -1,11 +1,11 @@
 {
   "name": "pouchdb-upsert",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "PouchDB upsert and putIfNotExists functions",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/nolanlawson/pouchdb-upsert.git"
+    "url": "git://github.com/chorpler/pouchdb-upsert.git"
   },
   "keywords": [
     "pouch",
@@ -18,32 +18,44 @@
   "author": "Nolan Lawson <nolan@nolanlawson.com>",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/nolanlawson/pouchdb-upsert/issues"
+    "url": "https://github.com/chorpler/pouchdb-upsert/issues"
   },
   "scripts": {
-    "test-node": "TEST_DB=testdb,http://localhost:5984/testdb istanbul test ./node_modules/mocha/bin/_mocha test/test.js",
+    "compile": "tsc",
+    "test-node": "cross-env TEST_DB=testdb,http://localhost:5984/testdb istanbul test ./node_modules/mocha/bin/_mocha test/test.js",
     "test-local": "zuul --ui mocha-bdd --no-coverage --local 9000 test/test.js",
     "jshint": "jshint -c .jshintrc *.js test/test.js",
     "test": "npm run jshint && ./bin/run-test.sh",
     "test-browser": "zuul --no-coverage --phantom --ui mocha-bdd test/test.js",
-    "build": "mkdir -p dist && browserify index.js -t es3ify -s PouchUpsert -o dist/pouchdb.upsert.js && npm run min",
+    "build": "tsc && mkdir -p dist && browserify index.js -t es3ify -s PouchUpsert -o dist/pouchdb.upsert.js && npm run min",
     "min": "uglifyjs dist/pouchdb.upsert.js -mc > dist/pouchdb.upsert.min.js",
     "coverage": "npm test --coverage && istanbul check-coverage --lines 100 --function 100 --statements 100 --branches 100"
   },
   "dependencies": {
-    "pouchdb-promise": "^6.1.2"
+    "pouchdb-core": "^7.0.0"
+  },
+  "dependenciesComments": {
+    "REMOVED-pouchdb-promise": "^6.1.2"
   },
   "devDependencies": {
+    "@types/debug": "^0.0.31",
+    "@types/node-fetch": "^2.1.4",
+    "@types/pouchdb": "^6.3.2",
+    "@types/pouchdb-core": "^7.0.1",
+    "@types/pouchdb-find": "^6.3.3",
+    "@types/pouchdb-replication": "^6.4.1",
     "bluebird": "^3.4.7",
     "browserify": "^14.1.0",
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "cross-env": "^5.2.0",
     "es3ify": "^0.2.2",
     "istanbul": "^0.4.5",
     "jshint": "^2.9.4",
     "mocha": "^3.2.0",
     "phantomjs-prebuilt": "^2.1.7",
-    "pouchdb-memory": "^6.0.0",
+    "pouchdb-memory": "file:../../pouchdb/pouchdb-memory",
+    "typescript": "^3.2.2",
     "uglify-js": "^2.4.13",
     "watchify": "^3.9.0",
     "zuul": "^3.10.1"

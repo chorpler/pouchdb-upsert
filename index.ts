@@ -86,9 +86,9 @@ function tryAndPut(db:PouchDB.Database, doc:PouchDoc, diffFun:UpsertDiffCallback
 //   }
 // }
 
-// let PouchDBWithUpsert:any = {};
-// PouchDBWithUpsert.upsert = async function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>):Promise<UpsertResponse> {
-exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
+let PouchDBWithUpsert:any = {};
+// exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
+PouchDBWithUpsert.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
   let self:PouchDB.Database = this;
   let db:PouchDB.Database = self;
   // let resp:UpsertResponse = await upsertInner(db, docId, diffFun);
@@ -104,7 +104,8 @@ exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallb
 
 // PouchDBWithUpsert.putIfNotExists = async function(docId:PouchDB.Core.DocumentId, doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = async function(doc:PouchDoc):Promise<UpsertResponse> {
-exports.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
+// exports.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
+PouchDBWithUpsert.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
   let self:PouchDB.Database = this;
   let db:PouchDB.Database = self;
   if(typeof docId !== 'string') {
@@ -157,4 +158,4 @@ if(typeof window !== 'undefined') {
   }
 }
 
-// export {PouchDBWithUpsert};
+export {PouchDBWithUpsert};

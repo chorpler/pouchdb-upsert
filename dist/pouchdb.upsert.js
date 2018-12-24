@@ -56,9 +56,10 @@ function tryAndPut(db, doc, diffFun) {
 //     upsert
 //   }
 // }
-// let PouchDBWithUpsert:any = {};
-// PouchDBWithUpsert.upsert = async function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>):Promise<UpsertResponse> {
-exports.upsert = function (docId, diffFun, cb) {
+var PouchDBWithUpsert = {};
+exports.PouchDBWithUpsert = PouchDBWithUpsert;
+// exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
+PouchDBWithUpsert.upsert = function (docId, diffFun, cb) {
     var self = this;
     var db = self;
     // let resp:UpsertResponse = await upsertInner(db, docId, diffFun);
@@ -73,7 +74,8 @@ exports.upsert = function (docId, diffFun, cb) {
 };
 // PouchDBWithUpsert.putIfNotExists = async function(docId:PouchDB.Core.DocumentId, doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = async function(doc:PouchDoc):Promise<UpsertResponse> {
-exports.putIfNotExists = function (docId, doc, cb) {
+// exports.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
+PouchDBWithUpsert.putIfNotExists = function (docId, doc, cb) {
     var self = this;
     var db = self;
     if (typeof docId !== 'string') {
@@ -124,7 +126,6 @@ if (typeof window !== 'undefined') {
         window.PouchDB.plugin(exports);
     }
 }
-// export {PouchDBWithUpsert};
 
 },{"pouchdb-core":10}],2:[function(require,module,exports){
 'use strict';

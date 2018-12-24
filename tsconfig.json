@@ -3,6 +3,7 @@
     "alwaysStrict": true,
     "baseUrl": ".",
     "lib": [
+      "es2017",
       "es2015",
       "dom"
     ],
@@ -13,7 +14,7 @@
     "strictNullChecks": false,
     "strictFunctionTypes": true,
     "sourceMap": true,
-    "target": "es5",
+    "target": "es3",
     "downlevelIteration": true,
     "allowSyntheticDefaultImports": true,
     "declaration": false,

@@ -64,7 +64,7 @@ function tests(dbName, dbType) {
       });
     });
 
-/*    it('should upsert a new doc, with callbacks', function (done) {
+    it('should upsert a new doc, with callbacks', function (done) {
       return db.upsert('myid', function () {
         return {some: 'doc'};
       }, function (err) {
@@ -85,7 +85,7 @@ function tests(dbName, dbType) {
         });
       });
     });
-*/
+
     it('should upsert a new doc in parallel', function () {
 
       function diff() {
@@ -219,7 +219,7 @@ function tests(dbName, dbType) {
     });
 
 
-/*    it('should create a new doc, with sugar and callbacks', function (done) {
+    it('should create a new doc, with sugar and callbacks', function (done) {
       db.putIfNotExists({_id: 'foo', hey: 'yo'}, function (err) {
         if (err) {
           return done(err);
@@ -258,7 +258,7 @@ function tests(dbName, dbType) {
         });
       });
     });
-*/
+
 
     it('should not recreate a doc, with sugar', function () {
       return db.putIfNotExists({_id: 'foo', hey: 'yo'}).then(function (res) {

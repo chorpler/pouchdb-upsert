@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "alwaysStrict": true,
-    "baseUrl": ".",
+    "baseUrl": "src",
     "lib": [
       "es2017",
       "es2015",
@@ -9,8 +9,8 @@
     ],
     "moduleResolution": "node",
     "allowJs": false,
-    "noImplicitAny": true,
-    "noImplicitThis": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
     "strictNullChecks": false,
     "strictFunctionTypes": true,
     "sourceMap": true,
@@ -23,13 +23,14 @@
     "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.ts"
+    "src/index.ts"
   ],
   "include": [
-    "index.ts"
+    "src/index.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "lib"
   ]
 }

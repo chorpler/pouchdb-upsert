@@ -86,9 +86,9 @@ function tryAndPut(db:PouchDB.Database, doc:PouchDoc, diffFun:UpsertDiffCallback
 //   }
 // }
 
-let PouchDBWithUpsert:any = {};
+// let PouchDBWithUpsert:any = {};
 // exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
-PouchDBWithUpsert.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
+const upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
   let self:PouchDB.Database = this;
   let db:PouchDB.Database = self;
   // let resp:UpsertResponse = await upsertInner(db, docId, diffFun);
@@ -105,7 +105,7 @@ PouchDBWithUpsert.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:Upser
 // PouchDBWithUpsert.putIfNotExists = async function(docId:PouchDB.Core.DocumentId, doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = async function(doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
-PouchDBWithUpsert.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
+const putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
   let self:PouchDB.Database = this;
   let db:PouchDB.Database = self;
   if(typeof docId !== 'string') {
@@ -149,13 +149,13 @@ PouchDBWithUpsert.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:P
 };
 
 /* istanbul ignore next */
-if(typeof window !== 'undefined') {
-  if((window as any).PouchDB) {
-    (window as any).PouchDB.plugin(exports);
-  } else {
-    (window as any).PouchDB = PouchDB;
-    (window as any).PouchDB.plugin(exports);
-  }
-}
+// if(typeof window !== 'undefined') {
+//   if((window as any).PouchDB) {
+//     (window as any).PouchDB.plugin(PouchDBWithUpsert);
+//   } else {
+//     (window as any).PouchDB = PouchDB;
+//     (window as any).PouchDB.plugin(PouchDBWithUpsert);
+//   }
+// }
 
-export {PouchDBWithUpsert};
+export {upsert, putIfNotExists};

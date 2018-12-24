@@ -1,15 +1,16 @@
 'use strict';
 
-var Pouch = require('pouchdb-memory');
-
-var thePlugin = require('../');
-Pouch.plugin(thePlugin);
-
+var utils = require('./test-utils');
 var chai = require('chai');
-chai.use(require("chai-as-promised"));
-
+// chai.use(require("chai-as-promised"));
 var should = chai.should();
-var Promise = require('bluebird');
+// var Pouch = require('pouchdb-memory');
+// var thePlugin = require('../');
+// Pouch.plugin(thePlugin);
+var Pouch = utils.TestPouch;
+// var serverHost = utils.getConfig().serverHost;
+
+// var Promise = require('bluebird');
 
 var dbs;
 if (process.browser) {

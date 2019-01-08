@@ -1,32 +1,13 @@
-'use strict';
-
-Object.defineProperty(exports, '__esModule', { value: true });
-
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-
-function __awaiter(thisArg, _arguments, P, generator) {
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
         function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-}
-
-function __generator(thisArg, body) {
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
@@ -52,8 +33,8 @@ function __generator(thisArg, body) {
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
-}
-
+};
+Object.defineProperty(exports, "__esModule", { value: true });
 // this is essentially the "update sugar" function from daleharvey/pouchdb#1388
 // the diffFun tells us what delta to apply to the doc.  it either returns
 // the doc, or false if it doesn't need to do an update after all
@@ -111,14 +92,14 @@ function tryAndPut(db, doc, diffFun) {
 // let PouchDBWithUpsert:any = {};
 // exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
 var upsert = function (docId, diffFun) {
-    return __awaiter(this, void 0, Promise, function () {
-        var self, db, res, err_1;
+    return __awaiter(this, void 0, void 0, function () {
+        var self_1, db, res, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    self = this;
-                    db = self;
+                    self_1 = this;
+                    db = self_1;
                     return [4 /*yield*/, upsertInner(db, docId, diffFun)];
                 case 1:
                     res = _a.sent();
@@ -131,18 +112,19 @@ var upsert = function (docId, diffFun) {
         });
     });
 };
+exports.upsert = upsert;
 // PouchDBWithUpsert.putIfNotExists = async function(docId:PouchDB.Core.DocumentId, doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = async function(doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
 var putIfNotExists = function (docId, doc) {
-    return __awaiter(this, void 0, Promise, function () {
-        var self, db, diffFun, res, err_2;
+    return __awaiter(this, void 0, void 0, function () {
+        var self_2, db, diffFun, res, err_2;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     _a.trys.push([0, 2, , 3]);
-                    self = this;
-                    db = self;
+                    self_2 = this;
+                    db = self_2;
                     if (typeof docId !== 'string') {
                         doc = docId;
                         docId = doc._id;
@@ -166,6 +148,5 @@ var putIfNotExists = function (docId, doc) {
         });
     });
 };
-
-exports.upsert = upsert;
 exports.putIfNotExists = putIfNotExists;
+//# sourceMappingURL=index.js.map

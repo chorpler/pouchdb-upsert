@@ -1,6 +1,6 @@
 import * as PouchDB from 'pouchdb-core';
 
-declare const window:any;
+// declare const window:any;
 
 export interface PouchDocRequired extends Object {
   _id:string;
@@ -88,64 +88,43 @@ function tryAndPut(db:PouchDB.Database, doc:PouchDoc, diffFun:UpsertDiffCallback
 
 // let PouchDBWithUpsert:any = {};
 // exports.upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
-const upsert = function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>, cb?:Function):Promise<UpsertResponse> {
-  let self:PouchDB.Database = this;
-  let db:PouchDB.Database = self;
-  // let resp:UpsertResponse = await upsertInner(db, docId, diffFun);
-  let promise:Promise<UpsertResponse> = upsertInner(db, docId, diffFun);
-  if(typeof cb !== 'function') {
-    return promise;
+const upsert = async function(docId:PouchDB.Core.DocumentId, diffFun:UpsertDiffCallback<PouchDoc>):Promise<UpsertResponse> {
+  try {
+    let self:PouchDB.Database = this;
+    let db:PouchDB.Database = self;
+    // let resp:UpsertResponse = await upsertInner(db, docId, diffFun);
+    let res:UpsertResponse = await upsertInner(db, docId, diffFun);
+    return res;
+  } catch(err) {
+    throw err;
   }
-  promise.then((resp:UpsertResponse) => {
-    cb(null, resp);
-  }, <any>cb);
-  // return resp;
 };
 
 // PouchDBWithUpsert.putIfNotExists = async function(docId:PouchDB.Core.DocumentId, doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = async function(doc:PouchDoc):Promise<UpsertResponse> {
 // exports.putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
-const putIfNotExists = function(docId:PouchDB.Core.DocumentId, doc:PouchDoc, cb?:Function):Promise<UpsertResponse> {
-  let self:PouchDB.Database = this;
-  let db:PouchDB.Database = self;
-  if(typeof docId !== 'string') {
-    cb = doc;
-    doc = docId;
-    docId = doc._id;
-  }
-  // let id:string, putDoc:PouchDoc;
-  // if(typeof doc === 'object') {
-  //   putDoc = doc;
-  //   id = docId;
-  // } else if(typeof docId === 'object') {
-  //   putDoc = docId;
-  //   id = putDoc._id;
-  // }
-  // if(!(putDoc && id)) {
-  //   throw new Error('putIfNotExists() requires parameter be PouchDoc, or string and PouchDoc.');
-  // }
-  // if(typeof docId !== 'string') {
-  //   cb = doc;
-  //   doc = docId;
-  //   docId = doc._id;
-  // }
-
-  let diffFun:UpsertDiffCallback<PouchDoc> = function(existingDoc:PouchDoc):PouchDoc|false {
-    if(existingDoc._rev) {
-      return false; // do nothing
+const putIfNotExists = async function(docId:PouchDB.Core.DocumentId|PouchDoc, doc?:PouchDoc):Promise<UpsertResponse> {
+  try {
+    let self:PouchDB.Database = this;
+    let db:PouchDB.Database = self;
+    if(typeof docId !== 'string') {
+      doc = docId;
+      docId = doc._id;
     }
-    // return putDoc;
-    return doc;
-  };
-  let promise:Promise<UpsertResponse> = upsertInner(db, docId, diffFun);
-  if(typeof cb !== 'function') {
-    return promise;
+  
+    let diffFun:UpsertDiffCallback<PouchDoc> = function(existingDoc:PouchDoc):PouchDoc|false {
+      if(existingDoc._rev) {
+        return false; // do nothing
+      }
+      // return putDoc;
+      return doc;
+    };
+  
+    let res:UpsertResponse = await upsertInner(db, docId, diffFun);
+    return res;
+  } catch(err) {
+    throw err;
   }
-  promise.then((resp:UpsertResponse) => {
-    cb(null, resp);
-  }, <any>cb);
-  // let resp:UpsertResponse = await upsertInner(db, id, diffFun);
-  // return resp;
 };
 
 /* istanbul ignore next */

@@ -5,6 +5,13 @@ PouchDB Upsert
 
 [![Build Status](https://travis-ci.org/pouchdb/upsert.svg)](https://travis-ci.org/pouchdb/upsert)
 
+
+Note
+------
+*This branch has been updated to work with pouchdb@7.0.0, and has removed support for callbacks in favor of returning a Promise*
+
+Original
+------
 A tiny plugin for PouchDB that provides two convenience methods:
 
 * `upsert()` - update a document, or insert a new one if it doesn't exist ("upsert"). Will keep retrying (forever) if it gets 409 conflicts.
@@ -41,25 +48,32 @@ var PouchDB = require('pouchdb');
 PouchDB.plugin(require('pouchdb-upsert'));
 ```
 
+Or if using with TypeScript (or Angular 2+, Ionic 2+, etc.):
+```ts
+import PouchDB from 'pouchdb';
+import * as pdbUpsert from 'pouchdb-upsert';
+PouchDB.plugin(pdbUpsert);
+```
+
 API
 --------
 
 
 ### Overview
 
-* [`db.upsert(docId, diffFunc [, callback])`](#dbupsertdocid-difffunc--callback)
-* [`db.putIfNotExists([docId, ] doc [, callback])`](#dbputifnotexistsdocid--doc--callback)
+* [`db.upsert(docId, diffFunc)`](#dbupsertdocid-difffunc--callback)
+* [`db.putIfNotExists([docId, ] doc)`](#dbputifnotexistsdocid--doc--callback)
 
-### db.upsert(docId, diffFunc [, callback])
+### db.upsert(docId, diffFunc)
 
-Perform an upsert (update or insert) operation. If you don't specify a `callback`, then this function returns a Promise.
+Perform an upsert (update or insert) operation. ***Note: As of v7.0.0, this function only returns a Promise; the callback functionality has been removed because I hate it***
 
 * `docId` - the `_id` of the document.
 * `diffFunc` - function that takes the existing doc as input and returns an updated doc.
   * If this `diffFunc` returns falsey, then the update won't be performed (as an optimization).
   * If the document does not already exist, then `{}` will be the input to `diffFunc`.
 
-**Note:** By design, the goal of this repo is to just provide a handler for synchronized logic. ```diffFunc``` must not make asynchronous calls.
+**Note:** By design, the goal of this repo is to just provide a handler for synchronous logic. ```diffFunc``` must not make asynchronous calls.
 
 ##### Example 1
 
@@ -153,9 +167,9 @@ Resulting doc:
 }
 ```
 
-### db.putIfNotExists([docId, ] doc [, callback])
+### db.putIfNotExists([docId, ] doc)
 
-Put a new document with the given `docId`, if it doesn't already exist. If you don't specify a `callback`, then this function returns a Promise.
+Put a new document with the given `docId`, if it doesn't already exist. ***Note: As of v7.0.0, this function only returns a Promise; the callback functionality has been removed because I hate it***
 
 * `docId` - the `_id` of the document. Optional if you already include it in the `doc`
 * `doc` - the document to insert. Should contain an `_id` if `docId` is not specified
@@ -213,6 +227,7 @@ Resulting doc (same as example 1):
 Breaking changes
 ----
 
+* 7.0.0: Now written in TypeScript, and removes callback functionality to force returning a Promise.
 * 2.0.0: breaks compatibility with PouchDB <4.0.1, see [#9](https://github.com/pouchdb/upsert/pull/9) for details.
 
 
